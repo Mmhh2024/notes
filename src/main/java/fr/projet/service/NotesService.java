@@ -37,5 +37,13 @@ public class NotesService {
             noteRepository.deleteById(noteId);
 
     }
+        public boolean  existsNoteById(Integer noteId){
+            if(noteRepository.getById(noteId)==null){
+                return false;
+            }else{
+                return true;
+            }
+
+        }
 
 }
