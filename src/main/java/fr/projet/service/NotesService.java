@@ -33,6 +33,11 @@ public class NotesService {
             return noteRepository.save(note);
 
         }
+
+        public Notes createNote(Notes note) {
+            return noteRepository.save(note);
+
+        }
         public void deleteNoteById(Integer noteId) {
             noteRepository.deleteById(noteId);
 

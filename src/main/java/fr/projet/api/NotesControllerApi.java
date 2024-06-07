@@ -45,22 +45,29 @@ public class NotesControllerApi {
         return null; // Or throw an exception
     }
 
-    @PostMapping()
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public Notes createNote(@RequestBody Notes note) {
+    public String createNote(@RequestBody Notes note) {
+        Notes tmpNote = new Notes();
+        String result;
         note.setDateAjout(LocalDateTime.now());
-        note.setDateModification(note.getDateAjout());
-        return noteService.saveNote(note);
+        note.setDateModification(null);
+        tmpNote = noteService.createNote(note);
+        result = tmpNote.getId()+"/"+tmpNote.getIdUtilisateur();
+              return result;
     }
 
     @PutMapping("/{id}")
-	public Notes update(@RequestBody Notes note, @PathVariable("id") Integer id) {
+	public String update(@RequestBody Notes note, @PathVariable("id") Integer id) {
 		if (id != note.getId() || !this.noteService.existsNoteById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id Note inexistant");
 		}
-       
-        note.setDateModification(LocalDateTime.now());
-		return this.noteService.saveNote(note);
+       Notes tmpNote = new Notes();
+       String result;
+       note.setDateModification(LocalDateTime.now());
+       tmpNote =  this.noteService.saveNote(note);
+       result = tmpNote.getId()+"/"+tmpNote.getIdUtilisateur();
+              return result;
 	}
     // delete
     @DeleteMapping("/{id}")
