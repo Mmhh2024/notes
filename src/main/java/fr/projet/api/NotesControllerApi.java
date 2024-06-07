@@ -45,7 +45,7 @@ public class NotesControllerApi {
         return null; // Or throw an exception
     }
 
-    @PostMapping
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Notes createNote(@RequestBody Notes note) {
         note.setDateAjout(LocalDateTime.now());
