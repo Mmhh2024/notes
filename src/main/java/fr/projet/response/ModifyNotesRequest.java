@@ -1,13 +1,10 @@
-package fr.projet.request;
-
-import java.time.LocalDateTime;
+package fr.projet.response;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class NotesRequest {
-
-     @NotNull
+public class ModifyNotesRequest {
+    @NotNull
     private Integer id;
     @NotNull
     private Integer idUtilisateur;
@@ -18,9 +15,6 @@ public class NotesRequest {
 
     private String description;
 
-    private LocalDateTime dateAjout;
-
-    private LocalDateTime dateModification;
 
     public Integer getId() {
         return id;
@@ -62,19 +56,4 @@ public class NotesRequest {
         this.description = description;
     }
 
-    public LocalDateTime getDateAjout() {
-        return dateAjout;
-    }
-
-    public void setDateAjout(LocalDateTime dateAjout) {
-        this.dateAjout = dateAjout;
-    }
-
-    public LocalDateTime getDateModification() {
-        return dateModification;
-    }
-
-    public void setDateModification(LocalDateTime dateModification) {
-        this.dateModification = dateModification;
-    }
 }

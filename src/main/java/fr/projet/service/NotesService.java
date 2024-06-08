@@ -43,10 +43,10 @@ public class NotesService {
 
     }
         public boolean  existsNoteById(Integer noteId){
-            if(noteRepository.getById(noteId)==null){
-                return false;
-            }else{
+            if(noteRepository.existsById(noteId) ){
                 return true;
+            }else{
+                return false;
             }
 
         }

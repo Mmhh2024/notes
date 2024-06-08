@@ -1,14 +1,13 @@
-package fr.projet.request;
-
-import java.time.LocalDateTime;
+package fr.projet.response;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class NotesRequest {
+public class CreateNotesRequest {
 
-     @NotNull
-    private Integer id;
+
+    //@NotNull
+    //private Integer id;
     @NotNull
     private Integer idUtilisateur;
     @NotBlank
@@ -18,17 +17,17 @@ public class NotesRequest {
 
     private String description;
 
-    private LocalDateTime dateAjout;
+    //private LocalDateTime dateAjout;
 
-    private LocalDateTime dateModification;
+    //private LocalDateTime dateModification;
 
-    public Integer getId() {
+    /*public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
+    }*/
 
     public Integer getIdUtilisateur() {
         return idUtilisateur;
@@ -62,7 +61,7 @@ public class NotesRequest {
         this.description = description;
     }
 
-    public LocalDateTime getDateAjout() {
+    /*public LocalDateTime getDateAjout() {
         return dateAjout;
     }
 
@@ -76,5 +75,9 @@ public class NotesRequest {
 
     public void setDateModification(LocalDateTime dateModification) {
         this.dateModification = dateModification;
-    }
+    }*/
+
+
+
+
 }
