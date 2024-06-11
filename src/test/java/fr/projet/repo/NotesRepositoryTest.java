@@ -30,5 +30,23 @@ public class NotesRepositoryTest {
 
         // then
         Assertions.assertEquals(4, notes.size());
+
+        // when
+        notes = this.repository.findByIdUtilisateur(200);
+
+        // then
+        Assertions.assertEquals(3, notes.size());
+
+        // when
+        notes = this.repository.findByIdUtilisateur(300);
+
+        // then
+        Assertions.assertEquals(1, notes.size());
+
+        // when
+        notes = this.repository.findByIdUtilisateur(400);
+
+        // then
+        Assertions.assertEquals(0, notes.size());
     }
 }

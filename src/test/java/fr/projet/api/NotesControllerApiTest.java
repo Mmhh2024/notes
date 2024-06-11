@@ -60,7 +60,7 @@ public class NotesControllerApiTest {
     @Test
     void shouldFindAllCallsRepository() throws Exception {
         // given
-        Mockito.when(this.repository.findAll()).thenReturn(List.of(new Notes(), new Notes(), new Notes()));
+        Mockito.when(this.repository.findAll()).thenReturn(List.of(new Notes(), new Notes(), new Notes(), new Notes()));
 
         // when
         ResultActions result = this.mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT));
@@ -79,9 +79,9 @@ public class NotesControllerApiTest {
         CreateNotesRequest request = new CreateNotesRequest();
 
         request.setIdUtilisateur(200);
-        request.setNom("Nom test");
-        request.setContenu("contenu un");
-        request.setDescription("Description test");
+        request.setNom("Nom test created");
+        request.setContenu("contenu un created");
+        request.setDescription("Description test created");
 
 
         Mockito.when(this.repository.save(Mockito.any())).thenReturn(note);
@@ -103,21 +103,13 @@ public class NotesControllerApiTest {
 
 
     @ParameterizedTest
-    @MethodSource("provideCreateNotesRequests")
-    /*
-     * private Integer id;
-    private Integer idUtilisateur;
-    private String nom;
-    private String contenu;
-    private String description;
-    private LocalDateTime dateAjout;
-    private LocalDateTime dateModification;
-     */
+    @MethodSource("provideCreateNotesRequestsKo")
     void shouldCreateStatusBadRequest(Integer idUtilisateur, String nom, String contenu, String description
                                        ) throws Exception {
         // given
         CreateNotesRequest request = new CreateNotesRequest();
       
+       
 
         request.setIdUtilisateur(idUtilisateur);
         request.setNom(nom);
@@ -138,21 +130,8 @@ public class NotesControllerApiTest {
         result.andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
-
 	private static Stream<Arguments> provideCreateNotesRequests() {
         return Stream.of(
-	/* Arguments.of(null,200,"notes 1 de 1","contenu note une de un ", "description 1 de 1", "2024-04-28", "2024-04-28" ),
-            Arguments.of(1,null, "notes 1 de 1","contenu note une de un ", "description 1 de 1", "2024-04-28", "2024-04-28"),
-            Arguments.of("", null, "notes 1 de 1","contenu note une de un ", "description 1 de 1", "2024-04-28", "2024-04-28"),
-
-            Arguments.of(1,200,"notes 1 de 1","contenu note une de un ", "description 1 de 1", "2024-04-28", "2024-04-28"),
-            Arguments.of(2,200, "notes 2 de 1","contenu note deux de un ", "description 2 de 1", "2024-06-05", "2024-06-07"),
-            Arguments.of( 3,200, "notes 3 de 1","contenu note deuroisx de un ", "description 3 de 1", "2024-06-06", "2024-06-07"),
-			Arguments.of( 4,100,"notes 1 de 2","contenu note une de deux ", "description 1 de 2", "2024-06-05", "2024-06-05" )
-        */
-
-            Arguments.of(null, "notes 1 de 1","contenu note une de un ", "description 1 de 1"),
-            Arguments.of("", null, "notes 2 de 1","contenu note une de un ", "description 1 de 1"),
 
             Arguments.of(200,"notes 1 de 1","contenu note une de un ", "description 1 de 1"),
             Arguments.of(200, "notes 2 de 1","contenu note deux de un ", "description 2 de 1"),
@@ -161,11 +140,16 @@ public class NotesControllerApiTest {
         );
     }
 
+    private static Stream<Arguments> provideCreateNotesRequestsKo() {
+        return Stream.of(
+
+            Arguments.of(null, "notes 1 de 1","contenu note une de un ", "description 1 de 1"),
+            Arguments.of("",  "notes 2 de 1","contenu note une de un ", "description 1 de 1")
+
+        );
+    }
 
 
-	//@Test
-	//void contextLoads() {
-	//}
 
 
 
