@@ -2,10 +2,13 @@ package fr.projet.api;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -27,6 +31,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/notes")
+@CrossOrigin("*")
 public class NotesControllerApi {
     
     @Autowired
@@ -35,7 +40,8 @@ public class NotesControllerApi {
     @Autowired
     private NotesRepository repo;
 
-    //Logger logger = LogFactory.getLogger(LoggingController.class);
+    Logger logger = LoggerFactory.getLogger(NotesControllerApi.class);
+    
 
     @GetMapping
     public List<Notes> getAllNotes( ) {
@@ -67,25 +73,18 @@ public class NotesControllerApi {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public EntityCreatedResponse create(@Valid @RequestBody CreateNotesRequest request) {
-        Notes note = new Notes();
-        Notes tmpNote = new Notes();
-        //logger.debug("Creating new notes ...");
-
-        BeanUtils.copyProperties(request, note);
-        note.setDateAjout(LocalDateTime.now());
-        note.setDateModification(note.getDateAjout());
-        //this.repo.save(note);
-        tmpNote = noteService.createNote(note);
         
-        //logger.debug("Note {} created!", tmpNote.getId());
+        Notes tmpNote = this.noteService.createNote(request);
+       
+        logger.debug("Note {} created!", tmpNote.getId());
 
         return new EntityCreatedResponse(tmpNote.getId(), tmpNote.getIdUtilisateur());
     }
 
     // maj de note
-    @PutMapping("/{id}")
+    @PutMapping  // ("/{id}")
 	//public String update(@RequestBody Notes note, @PathVariable("id") Integer id) {
-    public Notes update(@Valid @RequestBody ModifyNotesRequest request   , @PathVariable("id") Integer id) {
+    public Notes update(@Valid @RequestBody ModifyNotesRequest request   , @RequestParam("id") Integer id) {
         
         Notes note = new Notes();
         Notes tmpnote = new Notes();
@@ -102,8 +101,7 @@ public class NotesControllerApi {
        //String result;
        note.setDateModification(LocalDateTime.now());
        tmpnote =  this.noteService.saveNote(note);
-      // result = tmpNote.getId()+"/"+tmpNote.getIdUtilisateur();
-       //       return result;
+       logger.debug("Note {} modified!", tmpnote.getId());
        return tmpnote;
 	}
     // delete de note
@@ -114,6 +112,7 @@ public class NotesControllerApi {
 		}
 
 		this.noteService.deleteNoteById(id);
+		 logger.debug("Note deleted!") ;
 	}
 
 

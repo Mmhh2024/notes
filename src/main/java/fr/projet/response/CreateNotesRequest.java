@@ -5,9 +5,6 @@ import jakarta.validation.constraints.NotNull;
 
 public class CreateNotesRequest {
 
-
-    //@NotNull
-    //private Integer id;
     @NotNull
     private Integer idUtilisateur;
     @NotBlank
@@ -16,18 +13,6 @@ public class CreateNotesRequest {
     private String contenu;
 
     private String description;
-
-    //private LocalDateTime dateAjout;
-
-    //private LocalDateTime dateModification;
-
-    /*public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }*/
 
     public Integer getIdUtilisateur() {
         return idUtilisateur;

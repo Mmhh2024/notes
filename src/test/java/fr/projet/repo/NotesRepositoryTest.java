@@ -23,7 +23,7 @@ public class NotesRepositoryTest {
 
     @Test
     void shouldFindAllFindsTwo() {
-        // given
+        // given - Intégration de 4 notes (deux utilisateur 200 et 300 )
 
         // when
         List<Notes> notes = this.repository.findAll();
