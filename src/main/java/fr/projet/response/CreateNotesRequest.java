@@ -2,9 +2,10 @@ package fr.projet.response;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
+ 
 public class CreateNotesRequest {
 
+	
     @NotNull
     private Integer idUtilisateur;
     @NotBlank

@@ -15,7 +15,6 @@ public class ModifyNotesRequest {
 
     private String description;
 
-
     public Integer getId() {
         return id;
     }
