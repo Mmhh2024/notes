@@ -59,17 +59,7 @@ public class NotesControllerApi {
         return null; //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune Note pour cet utilisateur");
     }
 
-    /*@PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String createNote(@RequestBody Notes note) {
-        Notes tmpNote = new Notes();
-        String result;
-        note.setDateAjout(LocalDateTime.now());
-        note.setDateModification(null);
-        tmpNote = noteService.createNote(note);
-        result = tmpNote.getId()+"/"+tmpNote.getIdUtilisateur();
-              return result;
-    }*/
+   
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public EntityCreatedResponse create(@Valid @RequestBody CreateNotesRequest request) {
