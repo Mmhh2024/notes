@@ -28,7 +28,11 @@ public class NotesService {
     public Notes getNoteById(Integer noteId) {
         return noteRepository.findById(noteId).orElse(null);
     }
-
+    //Vérifie l'existance de la note id 
+    public boolean notesExistsById(Integer noteId) {
+    	return noteRepository.existsById(noteId);
+    }
+   
     //  Creation de note
     public Notes createNote(CreateNotesRequest noteRequest) {
         Notes note = new Notes();
