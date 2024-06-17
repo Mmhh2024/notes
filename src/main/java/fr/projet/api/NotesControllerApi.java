@@ -78,8 +78,7 @@ public class NotesControllerApi {
     }
 
     // maj de note
-    @PutMapping  // ("/{id}")
-	//public String update(@RequestBody Notes note, @PathVariable("id") Integer id) {
+    @PutMapping   
     public Notes update(@Valid @RequestBody ModifyNotesRequest request   , @RequestParam("id") Integer id) {
         
         Notes note = new Notes();
