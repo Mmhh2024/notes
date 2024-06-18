@@ -2,6 +2,8 @@ package fr.projet.api;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.hibernate.internal.build.AllowSysOut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +49,14 @@ public class NotesControllerApi {
     public List<Notes> getAllNotes( ) {
        return this.repo.findAll();
     }
+    @GetMapping("/{idNote}/note")
+    public Boolean existNote( @PathVariable int idNote ) {
+    	
+    	System.out.println(noteService.existsNoteById(idNote));
+    	return noteService.existsNoteById(idNote);
+    	
+
+    }
 
     @GetMapping("/{idUtilsateur}")
     public List<Notes> getNoteById(@PathVariable int idUtilsateur ) {
@@ -78,8 +88,8 @@ public class NotesControllerApi {
     }
 
     // maj de note
-    @PutMapping   
-    public Notes update(@Valid @RequestBody ModifyNotesRequest request   , @RequestParam("id") Integer id) {
+    @PutMapping
+    public void update(@Valid @RequestBody ModifyNotesRequest request   , @RequestParam("id") Integer id) {
         
         Notes note = new Notes();
         Notes tmpnote = new Notes();
@@ -97,7 +107,7 @@ public class NotesControllerApi {
        note.setDateModification(LocalDateTime.now());
        tmpnote =  this.noteService.saveNote(note);
        logger.debug("Note {} modified!", tmpnote.getId());
-       return tmpnote;
+       //return tmpnote;
 	}
     // delete de note
     @DeleteMapping("/{id}")
