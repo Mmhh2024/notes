@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.projet.model.Notes;
 import fr.projet.repo.NotesRepository;
@@ -58,13 +59,13 @@ public class NotesService {
         return noteRepository.save(note);
 
     }
-    //Suppression de notes
+    //Delete the noteId note
     public void deleteNoteById(Integer noteId) {
             
     	noteRepository.deleteById(noteId);
 
     }
-    //Retourne un booleen , lorsque la note existe dans la table notes
+    //Return true if the noteId exist 
     public boolean  existsNoteById(Integer noteId){
             
     	if(noteRepository.existsById(noteId) ){
@@ -74,5 +75,14 @@ public class NotesService {
         }
 
      }
+    
+    //Delete notes by UserId
+    @Transactional
+    public void deleteNoteByIdUtilisateur(Integer userId) {
+        
+    	
+    	noteRepository.deleteByIdUtilisateur(userId);
+
+    }
 
 }

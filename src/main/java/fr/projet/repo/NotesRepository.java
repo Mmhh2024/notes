@@ -12,4 +12,6 @@ public interface NotesRepository extends JpaRepository <Notes, Integer> {
     public List<Notes> findByIdUtilisateur(Integer idUtilisateur);
     
     public boolean  existsById (Integer id);
+    
+    public void deleteByIdUtilisateur(Integer idUtilisateur);
 } 

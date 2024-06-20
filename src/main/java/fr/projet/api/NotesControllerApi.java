@@ -58,7 +58,7 @@ public class NotesControllerApi {
 
     }
 
-    @GetMapping("/{idUtilsateur}")
+    @GetMapping("{idUtilsateur}/user")
     public List<Notes> getNoteById(@PathVariable int idUtilsateur ) {
        List<Notes> currentNote = noteService.getNotesByUtilisateurId(idUtilsateur);
 
@@ -118,6 +118,14 @@ public class NotesControllerApi {
 
 		this.noteService.deleteNoteById(id);
 		 logger.debug("Note deleted!") ;
+	}
+    //Delete User notes
+    @DeleteMapping("/{id}/user")
+	public void deleteByUserId(@PathVariable("id") Integer id) {
+		
+
+		this.noteService.deleteNoteByIdUtilisateur(id);
+		 logger.debug("Note of the user {} deleted!", id) ;
 	}
 
 
