@@ -19,31 +19,34 @@ public class NotesService {
     @Autowired
     private NotesRepository noteRepository;
 
-    // retourne la liste de note d'un utilisateur
+    
     public List<Notes> getNotesByUtilisateurId(Integer utilisateurId) {
-
+    	// Return the user's notes
         return noteRepository.findByIdUtilisateur(utilisateurId );
 
     }
-    //Retourne la note de id = noteId
+   
     public Notes getNoteById(Integer noteId) {
+    	// Return the note with id = noteId
         return noteRepository.findById(noteId).orElse(null);
     }
-    //Vérifie l'existance de la note id 
+    
     public boolean notesExistsById(Integer noteId) {
+    	//Verify the existance of noteId
     	return noteRepository.existsById(noteId);
     }
    
-    //  Creation de note
+    
     public Notes createNote(CreateNotesRequest noteRequest) {
+    	//Creation note
         Notes note = new Notes();
        	BeanUtils.copyProperties(noteRequest, note);
        	note.setDateAjout(LocalDateTime.now());
         return noteRepository.save(note);
     }
-  //Mise à jour d'une note
+  
     public Notes saveNote(Notes note) {
-
+    	// update Note
         if(note.getId()==null) {
                 throw new RuntimeException("Besoin d'un id pour faire une mise à jour.");
         }
@@ -59,15 +62,15 @@ public class NotesService {
         return noteRepository.save(note);
 
     }
-    //Delete the noteId note
+    
     public void deleteNoteById(Integer noteId) {
-            
+    	//Delete the noteId note    
     	noteRepository.deleteById(noteId);
 
     }
-    //Return true if the noteId exist 
+    
     public boolean  existsNoteById(Integer noteId){
-            
+    	//Return true if the noteId exist    
     	if(noteRepository.existsById(noteId) ){
            return true;
         }else{
@@ -76,11 +79,11 @@ public class NotesService {
 
      }
     
-    //Delete notes by UserId
+    
     @Transactional
     public void deleteNoteByIdUtilisateur(Integer userId) {
         
-    	
+    	//Delete notes by UserId
     	noteRepository.deleteByIdUtilisateur(userId);
 
     }

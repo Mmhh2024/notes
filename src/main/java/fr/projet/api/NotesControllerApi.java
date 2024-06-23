@@ -51,15 +51,14 @@ public class NotesControllerApi {
     }
     @GetMapping("/{idNote}/note")
     public Boolean existNote( @PathVariable int idNote ) {
-    	
-    	System.out.println(noteService.existsNoteById(idNote));
+    	//Verify that noteId exist in the database
     	return noteService.existsNoteById(idNote);
-    	
-
+   
     }
 
-    @GetMapping("{idUtilsateur}/user")
+    @GetMapping("/{idUtilsateur}/allnotesuser")
     public List<Notes> getNoteById(@PathVariable int idUtilsateur ) {
+       //return the list of user's notes
        List<Notes> currentNote = noteService.getNotesByUtilisateurId(idUtilsateur);
 
         if (currentNote != null ) {
@@ -69,17 +68,17 @@ public class NotesControllerApi {
         return null; //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune Note pour cet utilisateur");
     }
 
-    @GetMapping("/{idNote}/notes")
+   /* @GetMapping("/{idNote}/notes")
     public boolean noteExistsById(@PathVariable int idNote ) {
-    	
+    	//Verify that noteId exist in the database
        return  noteService.notesExistsById(idNote);
 
-    }
+    }*/
    
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public EntityCreatedResponse create(@Valid @RequestBody CreateNotesRequest request) {
-        
+        // Note creation
         Notes tmpNote = this.noteService.createNote(request);
        
         logger.debug("Note {} created!", tmpNote.getId());
@@ -87,7 +86,6 @@ public class NotesControllerApi {
         return new EntityCreatedResponse(tmpNote.getId(), tmpNote.getIdUtilisateur());
     }
 
-    // maj de note
     @PutMapping
     public void update(@Valid @RequestBody ModifyNotesRequest request   , @RequestParam("id") Integer id) {
         
@@ -95,19 +93,20 @@ public class NotesControllerApi {
         Notes tmpnote = new Notes();
 
         tmpnote = this.noteService.getNoteById(id);
-        
+        note =    this.noteService.getNoteById(id);
         BeanUtils.copyProperties(request, note);
         
 
-		if (id != note.getId() || !this.noteService.existsNoteById(id)) {
+		if (id != tmpnote.getId() || !this.noteService.existsNoteById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id Note inexistant");
 		}
         note.setDateAjout(tmpnote.getDateAjout());
-       //String result;
-       note.setDateModification(LocalDateTime.now());
-       tmpnote =  this.noteService.saveNote(note);
+        note.setDateModification(LocalDateTime.now());
+      
+       // update the note
+       tmpnote = this.repo.save(note);
        logger.debug("Note {} modified!", tmpnote.getId());
-       //return tmpnote;
+      
 	}
     // delete de note
     @DeleteMapping("/{id}")
@@ -119,11 +118,11 @@ public class NotesControllerApi {
 		this.noteService.deleteNoteById(id);
 		 logger.debug("Note deleted!") ;
 	}
-    //Delete User notes
+    
     @DeleteMapping("/{id}/user")
 	public void deleteByUserId(@PathVariable("id") Integer id) {
 		
-
+    	//Delete User notes
 		this.noteService.deleteNoteByIdUtilisateur(id);
 		 logger.debug("Note of the user {} deleted!", id) ;
 	}
