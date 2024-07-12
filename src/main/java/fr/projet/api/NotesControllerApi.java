@@ -109,7 +109,7 @@ public class NotesControllerApi {
       
 	}
     // delete de note
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") // delete de la note de id = id
 	public void delete(@PathVariable("id") Integer id) {
 		if (!this.noteService.existsNoteById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note inexistante");
@@ -119,7 +119,7 @@ public class NotesControllerApi {
 		 logger.debug("Note deleted!") ;
 	}
     
-    @DeleteMapping("/{id}/user")
+    @DeleteMapping("/{id}/user")  //delete des notes d'un user
 	public void deleteByUserId(@PathVariable("id") Integer id) {
 		
     	//Delete User notes
