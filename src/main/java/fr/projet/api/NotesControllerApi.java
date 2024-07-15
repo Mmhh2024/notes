@@ -50,6 +50,12 @@ public class NotesControllerApi {
        return this.repo.findAll();
     }
     @GetMapping("/{idNote}/note")
+    public Notes getNote( @PathVariable int idNote ) {
+    	//Verify that noteId exist in the database
+    	return noteService.getNoteById(idNote);
+   
+    }
+    @GetMapping("/{idNote}/existnote")
     public Boolean existNote( @PathVariable int idNote ) {
     	//Verify that noteId exist in the database
     	return noteService.existsNoteById(idNote);
