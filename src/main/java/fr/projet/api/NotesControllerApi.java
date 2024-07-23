@@ -74,12 +74,7 @@ public class NotesControllerApi {
         return null; //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Aucune Note pour cet utilisateur");
     }
 
-   /* @GetMapping("/{idNote}/notes")
-    public boolean noteExistsById(@PathVariable int idNote ) {
-    	//Verify that noteId exist in the database
-       return  noteService.notesExistsById(idNote);
-
-    }*/
+   
    
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
